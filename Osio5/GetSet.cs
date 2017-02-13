@@ -8,7 +8,7 @@ namespace Osio5
 {
     /********************************************************
     * Olio-ohjelmointi, kevät 2017                          *
-    * Olli Suutari | Opiskelijanro:                         *
+    * Olli Suutari | Opiskelijanro:                 *
     * Osio 5, GetSet (aksessorit ja mutaattorit             *
     *********************************************************/
     public partial class Traveller
