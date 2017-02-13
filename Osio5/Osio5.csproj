@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cottage.cs" />
+    <Compile Include="Error_class.cs" />
     <Compile Include="LodgingApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services.cs" />
