@@ -8,7 +8,7 @@ namespace Osio5
 {
     /****************************************************
     * Olio-ohjelmointi, kevät 2017                      *
-    * Olli Suutari | Opiskelijanro:             *
+    * Olli Suutari | Opiskelijanro:                     *
     * Osio 5, Services luokka ja sen alaiset palvelut   *
     *****************************************************/
     //
