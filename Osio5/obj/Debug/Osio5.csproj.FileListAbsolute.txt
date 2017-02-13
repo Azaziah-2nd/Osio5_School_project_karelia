@@ -1,0 +1,12 @@
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio5\bin\Debug\Osio5.exe.config
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio5\bin\Debug\Osio5.exe
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio5\bin\Debug\Osio5.pdb
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio5\obj\Debug\Osio5.csprojResolveAssemblyReference.cache
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio5\obj\Debug\Osio5.exe
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio5\obj\Debug\Osio5.pdb
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio_5_Tyostokansio\Osio5\bin\Debug\Osio5.exe.config
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio_5_Tyostokansio\Osio5\bin\Debug\Osio5.exe
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio_5_Tyostokansio\Osio5\bin\Debug\Osio5.pdb
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio_5_Tyostokansio\Osio5\obj\Debug\Osio5.csprojResolveAssemblyReference.cache
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio_5_Tyostokansio\Osio5\obj\Debug\Osio5.exe
+D:\AMK\Kurssit\Olio-ohjelmointi\Palautettava_Osio_5\Osio_5_Tyostokansio\Osio5\obj\Debug\Osio5.pdb
