@@ -39,13 +39,4 @@ namespace Osio5
         public bool Cofee_break { get { return cofee_break; } set { cofee_break = value; } }
         public static int Customers_left { get { return customers_left; } set { customers_left = value; } }
     }
-    partial class Room_service : Services
-    {
-        public string Accomodation_description { get { return accomodation_description; } set { accomodation_description = value; } }
-        public double Accomodation_price { get { return accomodation_price; } set { accomodation_price = value; } }
-        public int Accomadation_max_visitors { get { return accomadation_max_visitors; } set { accomadation_max_visitors = value; } }
-        public DateTime Accomodation_starts { get { return accomodation_starts; } set { accomodation_starts = value; } }
-        public DateTime Accomodation_ends { get { return accomodation_ends; } set { accomodation_ends = value; } }
-        public Wlan_service Wlan { get { return wlan; } set { wlan = value; } }
-    }
 }

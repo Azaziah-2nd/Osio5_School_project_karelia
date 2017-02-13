@@ -97,12 +97,13 @@ namespace Osio5
             // Jos poistumisen syynä on asikkaiden loppuminen
             if(TravellerQueue.Customers_left == 0)
             {
-                Console.WriteLine("Huh, olipas päivä!");
+                Console.WriteLine("\nHuh, olipas päivä!");
+                Console.ReadLine();
             }
             // Syötteenä: "lopeta"
             else
             {
-                Console.WriteLine("Poistun, heippa!");
+                Console.WriteLine("\nPoistun, heippa!");
             }
         }
     }

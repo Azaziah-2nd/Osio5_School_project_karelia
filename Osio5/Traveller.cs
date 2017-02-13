@@ -158,11 +158,9 @@ namespace Osio5
                 // Palveltavan asiakkaan nimi varataan sattumanvaraisesti Next metodissa.
                 Console.WriteLine("Palvelen asiakasta nimeltä: " + traveller_queue.Name_from_list + "\n");
                 // Kysytään ja tulostetaan asiakkaan huoneen tiedot.
-                Room_service room = null;
-                room = new Room_service();
+                Room room = null;
+                room = new Room();
                 room.Room_service_AskInfo();
-                Console.WriteLine();
-                room.Room_service_PrintSummary();
                 // Lisätään palveltun asiakkaan numero palveltujen asiakkaiden listaan ja tarkistetaan, onko asiakkaita vielä palveltavana.
                 Served_customers.Add(traveller_queue.Customer_number_from_list);
                 traveller_queue.Check_customers_left(traveller);
