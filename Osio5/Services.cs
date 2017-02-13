@@ -11,11 +11,9 @@ namespace Osio5
     * Olli Suutari | Opiskelijanro:                     *
     * Osio 5, Services luokka ja sen alaiset palvelut   *
     *****************************************************/
-    //
     public class Services
     {
         private string service_name;
-
         public string Service_name
         {
             get { return service_name; }
@@ -32,6 +30,7 @@ namespace Osio5
         {
             Console.WriteLine("\nPalvelu: {0} | Hinta: {1}\nKuvaus: {2}", Service_name, Service_price, Service_description);
         }
+        // Monimuotoistetaan Read_from_file metodi.
         public virtual void Read_from_file(string filename)
         {
             using (StreamReader reader = new StreamReader(filename))
@@ -41,6 +40,10 @@ namespace Osio5
                 Service_price = double.Parse(reader.ReadLine());
             }
         }
+        public virtual void Service_summary()
+        {
+            Console.WriteLine("\nPalvelu: {0} | Hinta: {1} euroa\nKuvaus: {2}", Service_name, Service_price, Service_description);
+        }
     }
         public class Room : Services
         {
@@ -49,7 +52,7 @@ namespace Osio5
             public DateTime Accomodation_starts { get { return accomodation_starts; } set { accomodation_starts = value; } }
             public DateTime Accomodation_ends { get { return accomodation_ends; } set { accomodation_ends = value; } }
             private int numPersons;
-            private WirelessInternet internet = null;
+            private WirelessInternet internet = new WirelessInternet();
             public WirelessInternet Internet { get { return internet; } set { internet = value; } }
             public int NumPersons { get { return numPersons; } set { numPersons = value; } }
 
@@ -64,9 +67,18 @@ namespace Osio5
                     NumPersons = int.Parse(reader.ReadLine());
                 }
             }
+            public override void Service_summary()
+            {
+                // Tulostetaan huoneen yhteenveto.
+                base.Service_base_details();
+                Console.WriteLine("Huoneessa voi majoittua " + NumPersons + " ihmistä.");
+                if (Internet != null)
+                {
+                    internet.Internet_Details();
+                }
+            }
             public void Room_service_AskInfo()
             {
-                WirelessInternet wlan = new WirelessInternet();
                 string str_input;
                 string filename;
                 Console.Write("Luetaanko pienen vai ison mökin tiedot? (pieni/iso): ");
@@ -94,7 +106,6 @@ namespace Osio5
                     Service_price = double.Parse(reader.ReadLine());
                     NumPersons = int.Parse(reader.ReadLine());
                 }
-
                 // Kysytään majoituksen alkamis ja päättymispäivät.
                 Console.Write("Majoituksen aloituspäivämäärä: (pp/kk/vvvv): ");
                 str_input = Console.ReadLine() + " 15:00:00";
@@ -113,21 +124,18 @@ namespace Osio5
                 if (str_input.Equals("k"))
                 {
                     // Luetaan wlanin tiedot tiedostosta wlan.txt
-                    wlan.Read_from_file("wlan.txt");
+                    Internet.Read_from_file("wlan.txt");
                 }
-                // Tulostetaan huoneen yhteenveto.
-                base.Service_base_details();
-                Console.WriteLine("Huoneessa voi majoittua " + NumPersons + " ihmistä.");
-                if (wlan != null)
+                else
                 {
-                    wlan.Internet_Details();
+                    Internet = null;
                 }
-            }
+                Service_summary();
+                }
         }
         public class WirelessInternet : Services
         {
             private int bandwidth;
-
             public int Bandwidth
             { get { return bandwidth; } set { bandwidth = value; } }
             private string password;
@@ -135,7 +143,7 @@ namespace Osio5
             public void Internet_Details()
             {
                 base.Service_base_details();
-                Console.WriteLine("Yhteyden nopeus on " + Bandwidth + ", salasana: \"" + Password);
+                Console.WriteLine("Yhteyden nopeus on " + Bandwidth + ", salasana: " + Password);
             }
             public override void Read_from_file(string filename)
             {
