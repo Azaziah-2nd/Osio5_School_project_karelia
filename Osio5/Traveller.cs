@@ -72,10 +72,9 @@ namespace Osio5
                     Customer_number.Add(customers_count ++);
                 }
             }
-            catch (Exception e)
+            catch (Exception Error_class)
             {
-                Console.WriteLine("\nVirhe!\n" + e.Message);
-                Console.WriteLine("Tiedostoa ei pystytty avaamaan.");
+                Console.WriteLine("Tiedoston lukemisessa tapahtui virhe:\n" + Error_class);
             }
         }
         // AskInfo metodi. Kysytään tiedot käyttäjältä ja tallennetaan 

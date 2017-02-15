@@ -45,94 +45,76 @@ namespace Osio5
             Console.WriteLine("\nPalvelu: {0} | Hinta: {1} euroa\nKuvaus: {2}", Service_name, Service_price, Service_description);
         }
     }
-        public class Room : Services
-        {
-            private DateTime accomodation_starts;
-            private DateTime accomodation_ends;
-            public DateTime Accomodation_starts { get { return accomodation_starts; } set { accomodation_starts = value; } }
-            public DateTime Accomodation_ends { get { return accomodation_ends; } set { accomodation_ends = value; } }
-            private int numPersons;
-            private WirelessInternet internet = new WirelessInternet();
-            public WirelessInternet Internet { get { return internet; } set { internet = value; } }
-            public int NumPersons { get { return numPersons; } set { numPersons = value; } }
+    public class Room : Services
+    {
+        private DateTime accomodation_starts;
+        private DateTime accomodation_ends;
+        public DateTime Accomodation_starts { get { return accomodation_starts; } set { accomodation_starts = value; } }
+        public DateTime Accomodation_ends { get { return accomodation_ends; } set { accomodation_ends = value; } }
+        private int numPersons;
+        private WirelessInternet internet = new WirelessInternet();
+        public WirelessInternet Internet { get { return internet; } set { internet = value; } }
+        public int NumPersons { get { return numPersons; } set { numPersons = value; } }
 
-            // Ylikirjoitetaan Read_from_file metodi
-            public override void Read_from_file(string filename)
+        // Ylikirjoitetaan Read_from_file metodi
+        public override void Read_from_file(string filename)
+        {
+            using (StreamReader reader = new StreamReader(filename))
             {
-                using (StreamReader reader = new StreamReader(filename))
-                {
-                    Service_name = reader.ReadLine();
-                    Service_description = reader.ReadLine();
-                    Service_price = double.Parse(reader.ReadLine());
-                    NumPersons = int.Parse(reader.ReadLine());
-                }
+                Service_name = reader.ReadLine();
+                Service_description = reader.ReadLine();
+                Service_price = double.Parse(reader.ReadLine());
+                NumPersons = int.Parse(reader.ReadLine());
             }
-            public override void Service_summary()
+        }
+        public override void Service_summary()
+        {
+            // Tulostetaan huoneen yhteenveto.
+            base.Service_base_details();
+            Console.WriteLine("Huoneessa voi majoittua " + NumPersons + " ihmistä.");
+            if (Internet != null)
             {
-                // Tulostetaan huoneen yhteenveto.
-                base.Service_base_details();
-                Console.WriteLine("Huoneessa voi majoittua " + NumPersons + " ihmistä.");
-                if (Internet != null)
-                {
-                    internet.Internet_Details();
-                }
+                internet.Internet_Details();
             }
-            public void Room_service_AskInfo()
+        }
+        public void Room_service_AskInfo()
+        {
+            string str_input;
+            string filename;
+            Console.Write("Majoitus: (pieni/iso/ei): ");
+            filename = Console.ReadLine();
+            if (filename != "ei")
+        {
+            try
             {
-                string str_input;
-                string filename;
-                Console.Write("Luetaanko pienen vai ison mökin tiedot? (pieni/iso): ");
-                filename = Console.ReadLine();
-                try
-                {
-                    Read_from_file(filename + ".txt");
-                }
-                catch (Exception error)
-                {
-                    // Tulostetaan virheilmoitus
-                    Console.Write("Tiedostoa ei voitu lukea: " + error.Message);
-                    Console.Write("\nYritä uudestaan syöttämällä 'iso' tai pieni: ");
-                    filename = Console.ReadLine();
-                    // Toistetaan kunnes käyttäjä syöttää oikean tiedostonimen tai peruu syöttämisen.
-                    while (filename != "iso" && filename != "pieni")
-                    {
-                        Console.Write("Yritä uudestaan syöttämällä 'iso' tai 'pieni': ");
-                        filename = Console.ReadLine();
-                    }
-                    // Luetaan tiedot tiedostosta.
-                    StreamReader reader = new StreamReader(filename + ".txt");
-                    Service_name = reader.ReadLine();
-                    Service_description = reader.ReadLine();
-                    Service_price = double.Parse(reader.ReadLine());
-                    NumPersons = int.Parse(reader.ReadLine());
-                }
-                // Kysytään majoituksen alkamis ja päättymispäivät.
-                Console.Write("Majoituksen aloituspäivämäärä: (pp/kk/vvvv): ");
-                str_input = Console.ReadLine() + " 15:00:00";
-                Accomodation_starts = Convert.ToDateTime(str_input);
-                Console.Write("Majoituksen loppuminen: (pp/kk/vvvv): ");
-                str_input = Console.ReadLine() + " 12:00:00";
-                Accomodation_ends = Convert.ToDateTime(str_input);
-                // Wlan (k/e)
+                Read_from_file(filename + ".txt");
+            }
+            catch (Exception Error_class)
+            {
+                // Tulostetaan virheilmoitus
+                Console.Write("Tiedostoa ei voitu lukea, virhe: \n" + Error_class);
+            }
+        }
+            // Wlan (k/e)
+            Console.Write("Wifi (k/e): ");
+            str_input = Console.ReadLine();
+            while (!str_input.Equals("k") && !str_input.Equals("e"))
+            {
                 Console.Write("Wifi (k/e): ");
                 str_input = Console.ReadLine();
-                while (!str_input.Equals("k") && !str_input.Equals("e"))
-                {
-                    Console.Write("Wifi (k/e): ");
-                    str_input = Console.ReadLine();
-                }
-                if (str_input.Equals("k"))
-                {
-                    // Luetaan wlanin tiedot tiedostosta wlan.txt
-                    Internet.Read_from_file("wlan.txt");
-                }
-                else
-                {
-                    Internet = null;
-                }
-                Service_summary();
-                }
-        }
+            }
+            if (str_input.Equals("k"))
+            {
+                // Luetaan wlanin tiedot tiedostosta wlan.txt
+                Internet.Read_from_file("wlan.txt");
+            }
+            else
+            {
+                Internet = null;
+            }
+            Service_summary();
+            }
+    }
         public class WirelessInternet : Services
         {
             private int bandwidth;

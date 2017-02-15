@@ -8,10 +8,13 @@ namespace Osio5
 {
     class Error_class : Exception
     {
-        public Error_class(string name)
-        : base(String.Format("Invalid Student Name: {0}", name))
+        public Error_class()
         {
-
         }
+        public Error_class(string message) 
+        : base(message)
+        {
+        }
+
     }
 }
