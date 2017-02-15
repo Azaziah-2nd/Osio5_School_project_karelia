@@ -149,6 +149,7 @@ namespace Osio5
         {
             // Käytetään TravellerQueue luokkaa
             TravellerQueue traveller_queue = new TravellerQueue();
+            LodgingApp lodging_app = new LodgingApp();
             // Kutsutaan "Next" metodia.
             traveller_queue.Next(traveller);
             // Jos Next palauttaa kahviarvon epätodeksi.

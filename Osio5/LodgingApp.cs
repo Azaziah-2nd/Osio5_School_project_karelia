@@ -36,6 +36,54 @@ namespace Osio5
         ~LodgingApp()                  
         {
         }
+
+        public void AskServices(Traveller traveller)
+        {
+            Services services = new Services();
+            WirelessInternet internet = new WirelessInternet();
+            string str_input;
+            string filename;
+            Console.Write("Lisätäänkö majoitus? (iso/pieni/ei): ");
+            filename = Console.ReadLine();
+            if (filename != "ei")
+            {
+                try
+                {
+                    services.Read_from_file(filename + ".txt");
+                }
+                catch (Exception Error_class)
+                {
+                    // Tulostetaan virheilmoitus
+                    Console.Write("Tiedostoa ei voitu lukea, virhe: \n" + Error_class + "\n\n");
+                    filename = "ei";
+                }
+            }
+            // Wlan (k/e)
+            Console.Write("Wifi (k/e): ");
+            str_input = Console.ReadLine();
+            while (!str_input.Equals("k") && !str_input.Equals("e"))
+            {
+                Console.Write("Wifi (k/e): ");
+                str_input = Console.ReadLine();
+            }
+            if (str_input.Equals("k"))
+            {
+                // Luetaan wlanin tiedot tiedostosta wlan.txt
+                internet.Read_from_file("wlan.txt");
+            }
+            else
+            {
+                internet = null;
+            }
+            Services[] objects = { new Room(), new WirelessInternet() };
+
+            foreach (Services o in objects)
+            {
+                o.Service_summary();
+            }
+
+        }
+
         // Run metodi
         public void Run()
         {
