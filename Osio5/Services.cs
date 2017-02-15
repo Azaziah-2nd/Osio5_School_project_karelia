@@ -84,17 +84,18 @@ namespace Osio5
             Console.Write("Majoitus: (pieni/iso/ei): ");
             filename = Console.ReadLine();
             if (filename != "ei")
-        {
-            try
             {
-                Read_from_file(filename + ".txt");
+                try
+                {
+                    Read_from_file(filename + ".txt");
+                }
+                catch (Exception Error_class)
+                {
+                    // Tulostetaan virheilmoitus
+                    Console.Write("Tiedostoa ei voitu lukea, virhe: \n" + Error_class + "\n\n");
+                    filename = "ei";
+                }
             }
-            catch (Exception Error_class)
-            {
-                // Tulostetaan virheilmoitus
-                Console.Write("Tiedostoa ei voitu lukea, virhe: \n" + Error_class);
-            }
-        }
             // Wlan (k/e)
             Console.Write("Wifi (k/e): ");
             str_input = Console.ReadLine();

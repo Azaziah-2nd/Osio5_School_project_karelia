@@ -15,6 +15,5 @@ namespace Osio5
         : base(message)
         {
         }
-
     }
 }
