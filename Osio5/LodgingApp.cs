@@ -36,53 +36,64 @@ namespace Osio5
         ~LodgingApp()                  
         {
         }
-
-        public void AskServices(Traveller traveller)
+        /*
+         * Metodi kysyy asiakkaalta haluaako hän huoneen (ison / pienen), langattoman internetin tai koiravaljakkoajelun, 
+         * ja luo palveluoliot sen mukaisesti. Asiakkaan ei ole pakko valita huonetta, mutta hän voi silti valita langattoman 
+         * internetin tai koiravaljakkoajelun.
+         * Palveluoliot metodi tallentaa listaan, ja palauttaa listan paluuarvona. 
+         */
+        public List<Services> Serve()
         {
-            Services services = new Services();
-            WirelessInternet internet = new WirelessInternet();
-            string str_input;
-            string filename;
-            Console.Write("Lisätäänkö majoitus? (iso/pieni/ei): ");
-            filename = Console.ReadLine();
-            if (filename != "ei")
-            {
-                try
-                {
-                    services.Read_from_file(filename + ".txt");
-                }
-                catch (Exception Error_class)
-                {
-                    // Tulostetaan virheilmoitus
-                    Console.Write("Tiedostoa ei voitu lukea, virhe: \n" + Error_class + "\n\n");
-                    filename = "ei";
-                }
-            }
-            // Wlan (k/e)
-            Console.Write("Wifi (k/e): ");
-            str_input = Console.ReadLine();
-            while (!str_input.Equals("k") && !str_input.Equals("e"))
-            {
-                Console.Write("Wifi (k/e): ");
-                str_input = Console.ReadLine();
-            }
-            if (str_input.Equals("k"))
-            {
-                // Luetaan wlanin tiedot tiedostosta wlan.txt
-                internet.Read_from_file("wlan.txt");
-            }
-            else
-            {
-                internet = null;
-            }
-            Services[] objects = { new Room(), new WirelessInternet() };
+            List<Services> service_list = new List<Services>();
 
-            foreach (Services o in objects)
+            Console.Write("Minkälaisen huoneen haluat? (iso/pieni/ei): ");
+            string input = Console.ReadLine();
+
+            Room room = null;
+            if (input == "iso")
             {
-                o.Service_summary();
+                room = new Room();
+                room.Read_from_file("iso.txt");
+            }
+            else if (input == "pieni")
+            {
+                room = new Room();
+                room.Read_from_file("pieni.txt");
             }
 
+            if (room != null)
+            {
+                service_list.Add(room);
+            }
+            Console.Write("Haluatko internetin? (k/e): ");
+            WirelessInternet wifi = null;
+            if (Console.ReadLine() == "k")
+            {
+                wifi = new WirelessInternet();
+                wifi.Read_from_file("wlan.txt");
+            }
+            if (room != null && wifi != null)
+            {
+                room.Internet = wifi;
+            }
+            else if (wifi != null && room == null)
+            {
+                service_list.Add(wifi);
+            }
+            Console.Write("Haluatko koiravaljakkoajelulle? (k/e): ");
+            DogSafari safari = null;
+            if (Console.ReadLine() == "k")
+            {
+                safari = new DogSafari();
+                safari.Read_from_file("safari.txt");
+            }
+            if (safari != null)
+            {
+                service_list.Add(safari);
+            }
+            return service_list;
         }
+
 
         // Run metodi
         public void Run()
@@ -110,7 +121,15 @@ namespace Osio5
                     {
                         Console.Write("Anna tiedoston nimi: (lari | mari | pate): ");
                         str_input = Console.ReadLine() + ".txt";
-                        Traveller.ReadFromFile(str_input, traveller);
+                        try
+                        {
+                            Traveller.ReadFromFile(str_input, traveller);
+                            
+                        }
+                        catch (Error_class error_details)
+                        {
+                            Console.WriteLine("Hups! Tapahtui virhe: " + error_details.Message);
+                        }
                     }
                     else
                     {
@@ -119,6 +138,7 @@ namespace Osio5
                     }
                     // Tulostetaan luodun traveller olion tiedot PrintSummaryn avulla.
                     Traveller.PrintSummary(traveller);
+
                 }
                 // Suoritus alkaa tästä jos asiakastietoja ollaan kysytty jo kertaalleen.
                 Console.WriteLine("Komennot: 'uusi' = uusi asiakas | 'seuraava!' = asiakkaan palvelu. | 'lopeta'"); 
@@ -131,7 +151,15 @@ namespace Osio5
                 else if (str_input == "seuraava!")
                 {
                     // Käynnistetään NextTraveller metodi
-                    Traveller.NextTraveller(traveller);
+                    try
+                    {
+                        Traveller.NextTraveller(traveller);
+                    }
+                    catch (Error_class e)
+                    {
+                        Console.WriteLine("Hups! Tapahtui virhe: " + e.Message);
+                    }
+
                 }
                 else if (str_input == "lopeta")
                 {
